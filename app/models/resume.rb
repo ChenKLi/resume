@@ -1,4 +1,6 @@
 class Resume < ApplicationRecord
+  extend FriendlyId
+  friendly_id :random_slug, use: :slugged
 
   # validations
   validates :title, presence: true
@@ -18,4 +20,10 @@ class Resume < ApplicationRecord
     ]
   end
 
+
+  private
+  def random_slug
+    [*'a'..'z',*"A".."Z",*'0'..'9',"-","_"].sample(10).join
+  end
+  
 end

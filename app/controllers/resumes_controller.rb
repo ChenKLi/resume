@@ -1,6 +1,6 @@
 class ResumesController < ApplicationController
   before_action :find_resume, only: [:show]
-  before_action :find_my_resume, only: [:edit, :update, :destroy]
+  before_action :find_my_resume, only: [:edit, :update, :destroy,:pin]
   before_action :authenticate_user, except: [:index, :show]
 
   def index
@@ -10,6 +10,14 @@ class ResumesController < ApplicationController
   def my
     @resumes = current_user.resumes
   end
+
+  def pin
+    current_user.resumes.update_all("pinned = false")
+    @resume.update(pinned: true)
+    redirect_to my_resumes_path , notice:"履歷更新成功"
+  end
+  
+
 
   def show
   end
@@ -52,13 +60,13 @@ class ResumesController < ApplicationController
 
     def find_resume
       if user_signed_in?
-        @resume = current_user.resumes.find(params[:id])
+        @resume = current_user.resumes.friendly.find(params[:id])
       else
         @resume = Resume.published.find(params[:id])
       end
     end
 
     def find_my_resume
-      @resume = current_user.resumes.find(params[:id])
+      @resume = current_user.resumes.friendly.find(params[:id])
     end
 end
