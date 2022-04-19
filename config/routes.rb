@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "/@:user_id",to:"users#default_resume"
+  
   resources :resumes do
     collection do
       get :my
