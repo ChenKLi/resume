@@ -55,7 +55,7 @@ class ResumesController < ApplicationController
   private
     # Strong Parameters
     def resume_params
-      params.require(:resume).permit(:title, :content, :status)
+      params.require(:resume).permit(:title, :content, :status, :mugshot)
     end
 
     def find_resume

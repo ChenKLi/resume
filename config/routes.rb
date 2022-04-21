@@ -20,5 +20,10 @@ Rails.application.routes.draw do
 
   resource :sessions, only: [:create, :destroy]
 
+
+  namespace :admin do 
+    resources :vendors
+  end
+
   root "resumes#index"
 end

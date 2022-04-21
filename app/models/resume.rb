@@ -2,6 +2,9 @@ class Resume < ApplicationRecord
   extend FriendlyId
   friendly_id :random_slug, use: :slugged
 
+ 
+
+
   # validations
   validates :title, presence: true
   validates :content, presence: true
@@ -12,6 +15,12 @@ class Resume < ApplicationRecord
 
   # relationships
   belongs_to :user
+
+
+  has_one_attached :mugshot do |image|
+    image.variant :thumb, resize_to_limit: [200, 200]
+  end
+
 
   def self.all_status
     [
